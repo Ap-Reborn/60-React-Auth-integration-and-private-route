@@ -5,7 +5,7 @@ import { AuthContext } from '../Providers/AuthProvider';
 // input tag name = email and password dia hoica jate code kuje pai
 const Login = () => {
     // check usecontext authcotext do ta line  a import hoica
-    const {signIn} = useContext(AuthContext)
+    const {signIn,signInWithGoogler} = useContext(AuthContext)
 
     const handleLogin = event => {
         event.preventDefault();
@@ -22,6 +22,16 @@ const Login = () => {
         })
         .catch(error => {
             console.log(error)
+        })
+    }
+    const handleGoogleSignIn = () => {
+        signInWithGoogler()
+        .then(result =>{
+            const loggedUser=result.user;
+            console.log(loggedUser);
+        })
+        .catch(error => {
+            console.log(error);
         })
     }
     return (
@@ -54,6 +64,7 @@ const Login = () => {
                         </div>
                     </form>
                     <Link to="/register"><button className="btn btn-active btn-link">New to Auth Master</button></Link>
+                    <button onClick={handleGoogleSignIn} className="btn btn-primary">Google</button>
                 </div>
             </div>
         </div>

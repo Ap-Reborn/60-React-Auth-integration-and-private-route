@@ -1,10 +1,10 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from '../firebase/firebase.config'
 export const AuthContext = createContext(null);
 // getAuth and app do ta alada line a import hoi auto import na hole nija kore nita hoi na hoi refarence error dei
 const auth = getAuth(app);
-
+const googleAuthProvider = new GoogleAuthProvider
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     // reload dila login dekai seta fix code nicar line
@@ -15,6 +15,9 @@ const AuthProvider = ({ children }) => {
     }
     const signIn = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password);
+    }
+    const signInWithGoogler = ()=>{
+        return signInWithPopup(auth,googleAuthProvider);
     }
     // akane sign out dibo na karon firebase a sigout akata lika ahcae akane locali lika dila seta pore ar import korar cesta korba na .and akane peramiter lagbe na
     const logOut = () =>{
@@ -38,6 +41,7 @@ const AuthProvider = ({ children }) => {
         loading,
         createUser,
         signIn,
+        signInWithGoogler,
         logOut
     };
     return (

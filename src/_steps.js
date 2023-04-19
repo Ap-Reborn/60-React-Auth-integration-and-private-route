@@ -23,3 +23,8 @@ to access
 *2.auth provider will have auth and pass and password form register
 *
 */
+
+
+/* 
+*1.private route
+*/
