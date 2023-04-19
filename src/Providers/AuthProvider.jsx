@@ -7,6 +7,8 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    // reload dila login dekai seta fix code nicar line
+    const [loading,setLoading]=useState(true);
     const createUser = (email, password) => {
         //    creeateuserWithEmailandPasswor o getAuth er sate import hot hoi auto import na hole import kore nivo na hoi refarence error diba.
         return createUserWithEmailAndPassword(auth, email, password);
@@ -24,6 +26,8 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             console.log('auth state change', currentUser);
             setUser(currentUser);
+            //  reload dila login deka setar fix code
+            setLoading(false);
         });
         return () => {
             unsubscribe();
@@ -31,6 +35,7 @@ const AuthProvider = ({ children }) => {
     }, [])
     const authInfo = {
         user,
+        loading,
         createUser,
         signIn,
         logOut
